@@ -113,13 +113,13 @@ export default function Checkout() {
 
         /*-------*/
 
-        const orderRef = doc(collection(db, "orders")); // Create a reference for the order
+        const orderRef = doc(collection(db, "orders"));
         transaction.set(orderRef, orderData);
         return orderRef.id;
       }).then((orderId) => {
-        // Successfully placed the order, now clear the cart and set the order ID
-        setOrderId(orderId); // Set the order ID state
-        clearCart(); // Clear the cart after the order is placed
+        // Successfully placed the order, so clear the cart and set the order ID
+        setOrderId(orderId);
+        clearCart();
       });
 
       //   const orderData = {
@@ -259,7 +259,7 @@ export default function Checkout() {
             </Form>
           )}
         </Formik>
-
+        {/*Order Summary section*/}
         <div className={styles.orderSummary}>
           <h3>Order Summary</h3>
           {cart.items.map((item) => (

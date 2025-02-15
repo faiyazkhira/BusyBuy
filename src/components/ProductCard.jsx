@@ -4,6 +4,7 @@ import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+//ProductCard component to display individual products
 export default function ProductCard({ product }) {
   const { formatCurrency } = useCustom();
   const { addToCart, buyNow, cart } = useCart();
@@ -16,6 +17,7 @@ export default function ProductCard({ product }) {
   };
 
   const handleBuyNow = () => {
+    //allows a user to buy only when logged in
     if (!currentUser) {
       navigate("/login", { state: { from: "/checkout" } });
       return;
@@ -25,7 +27,7 @@ export default function ProductCard({ product }) {
 
   return (
     <div
-      onClick={() => navigate(`/products/${product.id}`)}
+      onClick={() => navigate(`/products/${product.id}`)} //Navigates us to product detail page
       className={styles.productCard2}
     >
       <img
@@ -39,7 +41,7 @@ export default function ProductCard({ product }) {
         <button
           variant="contained"
           onClick={(e) => {
-            e.stopPropagation();
+            e.stopPropagation(); //Prevents the click from propagating to the parent element
             handleAddToCart();
           }}
           className={styles.addToCartButton}
@@ -49,7 +51,7 @@ export default function ProductCard({ product }) {
         <button
           variant="outlined"
           onClick={(e) => {
-            e.stopPropagation();
+            e.stopPropagation(); //Prevents the click from propagating to the parent element
             handleBuyNow();
           }}
           className={styles.buyNowButton}

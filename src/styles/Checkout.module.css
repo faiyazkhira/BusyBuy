@@ -121,7 +121,7 @@ button:hover {
 
 .stateDropdownInput {
   width: 100%;
-  min-width: 300px; /* Sets a minimum width for the input */
+  min-width: 300px;
   margin-top: 0.5rem;
   padding: 0.5rem;
   border: 1px solid #ddd;

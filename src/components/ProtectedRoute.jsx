@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
+//This component is used to secure checkout and order related pages
 const ProtectedRoute = ({ children }) => {
   const { currentUser } = useAuth();
   const location = useLocation();

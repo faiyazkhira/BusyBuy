@@ -1,6 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
 import styles from "../styles/Checkout.module.css";
 
+//This component is used to display the state dropdown on checkout page
 const indianStates = [
   { code: "AP", label: "Andhra Pradesh" },
   { code: "AR", label: "Arunachal Pradesh" },
@@ -43,11 +44,11 @@ export default function StateDropdown({ field, form, ...props }) {
       getOptionLabel={(option) => option.label}
       value={selectedState}
       onChange={(event, newValue) => {
-        // When the user selects a new state, update the Formik field value.
+        // When the user selects a new state, value updates
         form.setFieldValue(field.name, newValue ? newValue.label : "");
       }}
       PaperProps={{
-        style: { minWidth: 300 }, // Ensures the dropdown is wide enough
+        style: { minWidth: 300 },
       }}
       renderInput={(params) => (
         <TextField

@@ -41,11 +41,13 @@ export default function Navbar() {
   const handleLogIn = () => navigate("/login");
   const handleCart = () => navigate("/cart");
 
+  //Hook to calculate total items in the cart
   useEffect(() => {
     const total = cart.items.reduce((qty, item) => qty + item.quantity, 0);
     setItemsCount(total);
   }, [cart.items]);
 
+  //Hook to fetch product categories from Firestore
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -63,7 +65,7 @@ export default function Navbar() {
     fetchCategories();
   }, []);
 
-  //search
+  //Hook for search functionality with a 300ms debounce
   useEffect(() => {
     const delay = setTimeout(() => {
       if (search) {
@@ -78,6 +80,7 @@ export default function Navbar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
+  //Main logic for search functionality
   const handleSearch = async () => {
     if (!search.trim()) return;
 
@@ -120,6 +123,7 @@ export default function Navbar() {
     setSearchResults([]);
   };
 
+  //When mouse enters, the menu opens.
   const handleOpenCategories = () => {
     setAnchorEl(categoriesButtonRef.current);
   };
