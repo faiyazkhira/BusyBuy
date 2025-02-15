@@ -16,6 +16,7 @@ import OrderHistory from "./pages/OrderHistory";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import ForgotPassword from "./pages/ForgotPassword";
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   const router = createBrowserRouter([
@@ -79,6 +80,7 @@ function App() {
           <CustomProvider>
             <CartProvider>
               <RouterProvider router={router} />
+              <Analytics />
             </CartProvider>
           </CustomProvider>
         </NotificationProvider>
