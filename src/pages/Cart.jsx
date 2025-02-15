@@ -25,7 +25,7 @@ export default function Cart() {
     return (
       <div className={styles.emptyCart}>
         <h2>Your cart is empty</h2>
-        <Link to="/shop" className={styles.continueShopping}>
+        <Link to="/products" className={styles.continueShopping}>
           Continue Shopping
         </Link>
       </div>
