@@ -1,70 +1,129 @@
-# Getting Started with Create React App
+# BusyBuy - Ecommerce Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+BusyBuy is an ecommerce platform built using React and Firebase. It offers a seamless shopping experience with user authentication, product listings, and secure transactions.
+I have slightly gone beyond the project requirements to make this project resume worthy and also a test to see how many functionalities can I incorporate in it.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Firebase Authentication (Sign up, Login, Logout, Password Reset)
+- Product Listings
+- Shopping Cart
+- Order Management
+- Responsive Design
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend:** React.js
+- **Backend:** Firebase (Firestore, Authentication)
+- **Database:** Firestore
 
-### `npm test`
+## Dependencies
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `react-router-dom`
+- `@mui/material`
+- `@mui/icons-material`
+- `react-icons`
+- `firebase`
+- `formik`
+- `yup`
 
-### `npm run build`
+## Usage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Register or log in using Firebase Authentication
+2. Browse products and add them to your cart
+3. Proceed to checkout and place an order
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Configuration
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Add Firebase configuration details in your environment variables:
 
-### `npm run eject`
+```
+REACT_APP_FIREBASE_API_KEY=""
+REACT_APP_FIREBASE_AUTH_DOMAIN=""
+REACT_APP_FIREBASE_PROJECT_ID=""
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+/src
+  /components  # Reusable UI components
+    - Navbar.jsx
+    - ProductCard.jsx
+    - ProtectedRoute.jsx
+    - StateDropdown.jsx
+  /pages       # Page components
+    - Cart.jsx
+    - Checkout.jsx
+    - Home.jsx
+    - Login.jsx
+    - NotFound.jsx
+    - OrderHistory.jsx
+    - ProductDetail.jsx
+    - ProductListing.jsx
+    - SignUp.jsx
+  /contexts    # Custom Context APIs
+    - AuthContext.js
+    - CartContext.js
+    - CustomContext.js
+    - NotificationContext.js
+  /styles      # CSS Modules
+    - Cart.module.css
+    - Checkout.module.css
+    - Home.module.css
+    - Login.module.css
+    - Navbar.module.css
+    - Notification.module.css
+    - OrderHistory.module.css
+    - ProductCard.module.css
+    - ProductDetail.module.css
+    - ProductListing.module.css
+  /services    # Firebase service
+    - firebase.js
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Component Details
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Components (`/src/components`)
 
-## Learn More
+Contains reusable UI components used throughout the application:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- `Navbar.jsx` - Main navigation component
+- `ProductCard.jsx` - Reusable product display card
+- `ProtectedRoute.jsx` - Route wrapper for authenticated pages
+- `StateDropdown.jsx` - Dropdown component for state selection
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Pages (`/src/pages`)
 
-### Code Splitting
+Individual page components that represent different routes in the application:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- `Home.jsx` - Landing page
+- `Login.jsx` - User authentication page
+- `SignUp.jsx` - New user registration
+- `ProductListing.jsx` - Main product catalog view
+- `ProductDetail.jsx` - Individual product view
+- `Cart.jsx` - Shopping cart page
+- `Checkout.jsx` - Order completion flow
+- `OrderHistory.jsx` - User's past orders
+- `NotFound.jsx` - 404 error page
 
-### Analyzing the Bundle Size
+### Contexts (`/src/contexts`)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+React Context providers for global state management:
 
-### Making a Progressive Web App
+- `AuthContext.js` - Authentication state and methods
+- `CartContext.js` - Shopping cart state management
+- `CustomContext.js` - Application-specific global state
+- `NotificationContext.js` - Toast/alert message system
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Styles (`/src/styles`)
 
-### Advanced Configuration
+CSS Modules for component-specific styling, matching each component with its dedicated stylesheet.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Services (`/src/services`)
 
-### Deployment
+External service integrations and configurations:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `firebase.js` - Firebase initialization and utility functions

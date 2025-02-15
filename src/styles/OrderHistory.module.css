@@ -1,0 +1,251 @@
+.orderHistory {
+  max-width: 1200px;
+  margin: 100px auto 2rem;
+  padding: 0 2rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.orderHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.orderId {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.orderDate {
+  font-size: 0.85rem;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.orderCard {
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.orderCard:hover {
+  transform: translateY(-1px);
+}
+
+.orderDetails {
+  padding: 1rem 0; /* Padding for the container */
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 0.5rem; /* Small gap between each item */
+}
+
+.items {
+  display: flex;
+  flex-direction: column; /* Stack each item vertically */
+  gap: 0.25rem; /* Small gap between item rows */
+}
+
+.item {
+  display: flex;
+  justify-content: space-between; /* Spread items between left and right */
+  font-size: 1rem; /* Regular size for item text */
+  color: #333; /* Dark color for text */
+  padding: 0.5rem 0; /* Padding for spacing between items */
+  border-bottom: 1px solid #eee; /* Light border between each item */
+}
+
+.item span:first-child {
+  font-weight: bold; /* Make item name bold */
+  color: #333; /* Keep item name dark */
+}
+
+.item span:last-child {
+  font-size: 0.95rem; /* Slightly smaller font for price and quantity */
+  color: #333; /* Highlight price and quantity in a distinct color */
+}
+
+/* Optionally, style for the price with better alignment */
+.item span:last-child {
+  font-weight: 500; /* Slightly bold for price */
+  text-align: right; /* Align the quantity-price to the right */
+}
+
+/* Styling for empty space in the details section */
+.orderDetails > .items > .item:last-child {
+  border-bottom: none; /* Remove border from last item */
+}
+
+.total,
+.status {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  font-weight: bold; /* Make total and status bold */
+  color: #333; /* Dark color for better readability */
+  padding: 0.5rem 0;
+}
+
+.total span:last-child,
+.status span:last-child {
+  color: #333; /* Accent color for total and status value */
+}
+
+/* Optional: Style for `total` and `status` container */
+.total {
+  display: flex;
+  justify-content: space-between; /* Position label and total on opposite sides */
+  font-size: 1.1rem; /* Slightly bigger font for the total */
+  font-weight: bold;
+  color: #333; /* Dark color for text */
+  padding: 0.5rem 0; /* Padding to separate from items */
+  border-top: 1px solid #eee; /* Light border for separation */
+  padding-top: 1rem;
+}
+
+.status {
+  font-size: 0.85rem; /* Slightly smaller font for status */
+  color: #d6be03; /* Blue color for the status text */
+}
+
+.status span:last-child {
+  font-weight: bold; /* Bold status text */
+}
+
+/* Remove border for last item if needed */
+.orderDetails > .items > .item:last-child {
+  border-bottom: none;
+}
+
+.orderHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.orderId {
+  font-weight: 600;
+  color: #2d3436;
+}
+
+.orderDate {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.itemsList {
+  margin-bottom: 1.5rem;
+}
+
+.itemRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.itemName {
+  flex: 2;
+  color: #333;
+}
+
+.itemQuantity {
+  flex: 1;
+  text-align: right;
+  color: #666;
+}
+
+.orderTotal {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.orderStatus {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.statusProcessing {
+  background-color: #f8e5b9;
+  color: #8a6d3b;
+}
+
+.statusShipped {
+  background-color: #b9e3f8;
+  color: #31708f;
+}
+
+.statusDelivered {
+  background-color: #c9f8b9;
+  color: #3c763d;
+}
+
+.emptyOrders {
+  text-align: center;
+  padding: 4rem;
+  color: #666;
+}
+
+.continueShopping {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  background-color: #2d3436;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: opacity 0.3s;
+}
+
+.continueShopping:hover {
+  opacity: 0.9;
+}
+
+.errorMessage {
+  color: #e74c3c;
+  text-align: center;
+  padding: 2rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .orderHistory {
+    padding: 0 1rem;
+    margin-top: 80px;
+  }
+
+  .orderHeaderRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .itemRow {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .itemQuantity {
+    text-align: left;
+  }
+}
