@@ -2,7 +2,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import { AuthProvider } from "./contexts/AuthContext";
 import SignUp from "./pages/SignUp";
 import Navbar from "./components/Navbar";
 import ProductDetail from "./pages/ProductDetail";
@@ -17,6 +16,9 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { NotificationProvider } from "./contexts/NotificationContext";
 import ForgotPassword from "./pages/ForgotPassword";
 import { Analytics } from "@vercel/analytics/react";
+import { Provider } from "react-redux";
+import { store } from "./redux/reducers/store";
+import { AuthWrapper } from "./redux/utils/AuthWrapper";
 
 function App() {
   const router = createBrowserRouter([
@@ -75,16 +77,18 @@ function App() {
 
   return (
     <>
-      <AuthProvider>
-        <NotificationProvider>
-          <CustomProvider>
-            <CartProvider>
-              <RouterProvider router={router} />
-              <Analytics />
-            </CartProvider>
-          </CustomProvider>
-        </NotificationProvider>
-      </AuthProvider>
+      <Provider store={store}>
+        <AuthWrapper>
+          <NotificationProvider>
+            <CustomProvider>
+              <CartProvider>
+                <RouterProvider router={router} />
+                <Analytics />
+              </CartProvider>
+            </CustomProvider>
+          </NotificationProvider>
+        </AuthWrapper>
+      </Provider>
     </>
   );
 }

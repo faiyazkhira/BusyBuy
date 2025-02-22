@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 import styles from "./../styles/OrderHistory.module.css";
 import { useCustom } from "../contexts/CustomContext";
+import { useSelector } from "react-redux";
 
 export default function OrderHistory() {
-  const { currentUser } = useAuth();
+  const { currentUser } = useSelector((state) => state.authReducer);
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const { formatCurrency } = useCustom();

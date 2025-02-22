@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 import { useCart } from "../contexts/CartContext";
-import { useAuth } from "../contexts/AuthContext";
+
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
@@ -16,6 +16,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import styles from "../styles/Checkout.module.css";
 import { useCustom } from "../contexts/CustomContext";
 import StateDropdown from "../components/StateDropdown";
+import { useSelector } from "react-redux";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -30,7 +31,7 @@ const validationSchema = Yup.object().shape({
 
 export default function Checkout() {
   const { cart, clearCart } = useCart();
-  const { currentUser } = useAuth();
+  const { currentUser } = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
   const [orderId, setOrderId] = useState(null);
   const [error, setError] = useState("");

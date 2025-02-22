@@ -1,9 +1,9 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useSelector } from "react-redux";
 
 //This component is used to secure checkout and order related pages
 const ProtectedRoute = ({ children }) => {
-  const { currentUser } = useAuth();
+  const { currentUser } = useSelector((state) => state.authReducer);
   const location = useLocation();
 
   if (!currentUser) {

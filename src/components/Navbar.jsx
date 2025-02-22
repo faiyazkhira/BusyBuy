@@ -1,5 +1,4 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
 import {
   MdClose,
   MdExpandMore,
@@ -22,9 +21,11 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { useCart } from "../contexts/CartContext";
 import { useCustom } from "../contexts/CustomContext";
+import { useDispatch, useSelector } from "react-redux";
+import { logOut } from "../redux/reducers/AuthReducer";
 
 export default function Navbar() {
-  const { currentUser, handleSignOut } = useAuth();
+  const { currentUser } = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
   const { formatCurrency } = useCustom();
   const [categories, setCategories] = useState([]);
@@ -37,9 +38,14 @@ export default function Navbar() {
   // eslint-disable-next-line no-unused-vars
   const [isSearching, setIsSearching] = useState(false);
   const [showResults, setShowResults] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLogIn = () => navigate("/login");
   const handleCart = () => navigate("/cart");
+
+  const handleSignOut = async () => {
+    await dispatch(logOut());
+  };
 
   //Hook to calculate total items in the cart
   useEffect(() => {

@@ -9,8 +9,9 @@ import {
 } from "@mui/material";
 import styles from "../styles/Login.module.css";
 import { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signIn, signInWithGoogle } from "../redux/reducers/AuthReducer";
 
 const errorMessages = {
   "auth/invalid-credential": "Invalid email or password",
@@ -25,8 +26,8 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const location = useLocation();
-  const { signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const from = location.state?.from?.pathname || "/";
   const isCheckoutRedirect = from === "/checkout";
 
@@ -34,7 +35,7 @@ export default function Login() {
     e.preventDefault();
     setError("");
     try {
-      await signIn(email, password);
+      await dispatch(signIn({ email, password })).unwrap();
       navigate(from, { replace: true });
     } catch (err) {
       setError(errorMessages[err.code] || "Login failed. Please try again.");
@@ -44,7 +45,7 @@ export default function Login() {
   const handleGoogleSignIn = async () => {
     setError("");
     try {
-      await signInWithGoogle();
+      await dispatch(signInWithGoogle()).unwrap();
       navigate(from, { replace: true });
     } catch (err) {
       setError(

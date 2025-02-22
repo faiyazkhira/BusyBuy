@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import {
   Alert,
@@ -10,6 +10,7 @@ import {
   Typography,
   Link as MuiLink,
 } from "@mui/material";
+import { signUp, signInWithGoogle } from "../redux/reducers/AuthReducer";
 
 const errorMessages = {
   "auth/email-already-in-use": "Email already in use",
@@ -19,7 +20,7 @@ const errorMessages = {
 };
 
 export default function SignUp() {
-  const { signUp, signInWithGoogle } = useAuth();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const [formData, setFormData] = useState({
@@ -28,6 +29,7 @@ export default function SignUp() {
     confirmPassword: "",
   });
   const [error, setError] = useState("");
+
   const from = location.state?.from?.pathname || "/";
   const isCheckoutRedirect = from === "/checkout";
 
@@ -38,25 +40,34 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
     if (formData.password !== formData.confirmPassword) {
       return setError("Passwords do not match");
     }
 
     try {
-      await signUp(formData.email, formData.password);
+      await dispatch(
+        signUp({
+          email: formData.email,
+          password: formData.password,
+        })
+      ).unwrap();
+
       navigate(from, { replace: true });
-    } catch (error) {
-      setError(errorMessages[error.code] || "Signup failed. Please try again.");
+    } catch (err) {
+      setError(
+        errorMessages[err.payload] || "Signup failed. Please try again."
+      );
     }
   };
 
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
+      await dispatch(signInWithGoogle()).unwrap();
       navigate(from, { replace: true });
-    } catch (error) {
+    } catch (err) {
       setError(
-        errorMessages[error.code] || "Google signup failed. Please try again."
+        errorMessages[err.payload] || "Google signup failed. Please try again."
       );
     }
   };
@@ -86,6 +97,7 @@ export default function SignUp() {
             {error}
           </Alert>
         )}
+
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           <TextField
             variant="outlined"
