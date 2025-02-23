@@ -1,46 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../services/firebase";
+import { displayNotification } from "./NotificationReducer";
 
 const INITIAL_STATE = {
   items: [],
 };
 
-export const addToCartWithStockCheck =
-  (item, showNotification) => async (dispatch, getState) => {
-    try {
-      const productRef = doc(db, "products", item.id);
-      const productDoc = await getDoc(productRef);
+export const addToCartWithStockCheck = (item) => async (dispatch, getState) => {
+  try {
+    const productRef = doc(db, "products", item.id);
+    const productDoc = await getDoc(productRef);
 
-      if (!productDoc.exists()) {
-        showNotification("This product is no longer available");
-        return;
-      }
+    console.log("Attempting to add item:", item.id);
 
-      const productData = productDoc.data();
-      const availableStock = productData.stock;
-
-      if (availableStock <= 0) {
-        showNotification("Sorry, this product is out of stock!");
-        return;
-      }
-
-      const currentItem = getState().cartReducer.items.find(
-        (cartItem) => cartItem.id === item.id
-      );
-      const currentQuantity = currentItem?.quantity || 0;
-
-      if (currentQuantity >= availableStock) {
-        showNotification("You've reached the maximum available quantity");
-        return;
-      }
-
-      dispatch(addItem(item));
-    } catch (error) {
-      showNotification("Failed to add item to cart");
-      console.error("Error checking stock:", error);
+    if (!productDoc.exists()) {
+      dispatch(displayNotification("This product is no longer available"));
+      return;
     }
-  };
+
+    const productData = productDoc.data();
+    const availableStock = productData.stock;
+
+    if (availableStock <= 0) {
+      dispatch(displayNotification("Sorry, this product is out of stock!"));
+      return;
+    }
+
+    const currentItem = getState().cartReducer.items.find(
+      (cartItem) => cartItem.id === item.id
+    );
+    const currentQuantity = currentItem?.quantity || 0;
+
+    if (currentQuantity >= availableStock) {
+      dispatch(
+        displayNotification("You've reached the maximum available quantity")
+      );
+      return;
+    }
+
+    dispatch(addItem(item));
+    dispatch(displayNotification("Item added to cart!", "success"));
+  } catch (error) {
+    dispatch(displayNotification("Failed to add item to cart"));
+    console.error("Error checking stock:", error);
+  }
+};
 
 const cartSlice = createSlice({
   name: "cart",

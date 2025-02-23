@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useNotification } from "../../contexts/NotificationContext";
+
 import {
   addItem,
   addToCartWithStockCheck,
@@ -10,7 +10,6 @@ import {
 
 export const useCartActions = () => {
   const dispatch = useDispatch();
-  const { showNotification } = useNotification();
 
   return {
     addItem: (item) => dispatch(addItem(item)),
@@ -18,8 +17,7 @@ export const useCartActions = () => {
     updateQuantity: (id, quantity) =>
       dispatch(updateQuantity({ id, quantity })),
     clearCart: () => dispatch(clearCart()),
-    addToCartWithStockCheck: (item) =>
-      dispatch(addToCartWithStockCheck(item, showNotification)),
+    addToCartWithStockCheck: (item) => dispatch(addToCartWithStockCheck(item)),
     buyNow: (product, navigate) => {
       dispatch(addItem(product));
       navigate("/checkout");
