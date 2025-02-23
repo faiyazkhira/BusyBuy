@@ -1,12 +1,16 @@
 import { Link } from "react-router-dom";
-import { useCart } from "../contexts/CartContext";
 import { useCustom } from "../contexts/CustomContext";
 import styles from "../styles/Cart.module.css";
 import { FaPlus, FaMinus } from "react-icons/fa6";
+import { useSelector } from "react-redux";
+import { useCartActions } from "../redux/utils/useCartActions";
 
 export default function Cart() {
-  const { cart, removeItem, updateQuantity, clearCart } = useCart();
+  const { removeItem, updateQuantity, clearCart } = useCartActions();
+  const { items: cart } = useSelector((state) => state.cartReducer);
   const { formatCurrency } = useCustom();
+
+  console.log(cart);
 
   const handleQuantityChange = (id, newQuantity) => {
     if (newQuantity >= 1) {
@@ -15,13 +19,10 @@ export default function Cart() {
   };
 
   const calculateTotal = () => {
-    return cart.items.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  if (cart.items.length === 0) {
+  if (cart.length === 0) {
     return (
       <div className={styles.emptyCart}>
         <h2>Your cart is empty</h2>
@@ -42,7 +43,7 @@ export default function Cart() {
           </button>
         </div>
 
-        {cart.items.map((item) => (
+        {cart.map((item) => (
           <div key={item.id} className={styles.cartItem}>
             <div className={styles.itemInfo}>
               <img

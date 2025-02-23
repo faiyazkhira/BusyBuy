@@ -97,7 +97,6 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.loading = false;
       })
-      // Add similar cases for other async thunks
       .addCase(logOut.fulfilled, (state) => {
         state.currentUser = null;
         state.loading = false;

@@ -1,5 +1,4 @@
 import * as Yup from "yup";
-import { useCart } from "../contexts/CartContext";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -17,6 +16,7 @@ import styles from "../styles/Checkout.module.css";
 import { useCustom } from "../contexts/CustomContext";
 import StateDropdown from "../components/StateDropdown";
 import { useSelector } from "react-redux";
+import { useCartActions } from "../redux/utils/useCartActions";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Required"),
@@ -30,7 +30,9 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Checkout() {
-  const { cart, clearCart } = useCart();
+  const { clearCart } = useCartActions();
+  const { items: cart } = useSelector((state) => state.cartReducer);
+
   const { currentUser } = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
   const [orderId, setOrderId] = useState(null);
@@ -63,10 +65,7 @@ export default function Checkout() {
   }, [currentUser]);
 
   const calculateTotal = () => {
-    return cart.items.reduce(
-      (total, item) => total + item.price * item.quantity,
-      0
-    );
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
@@ -85,7 +84,7 @@ export default function Checkout() {
 
       await runTransaction(db, async (transaction) => {
         await Promise.all(
-          cart.items.map(async (item) => {
+          cart.map(async (item) => {
             const productRef = doc(db, "products", item.id);
             const productDoc = await transaction.get(productRef);
 
@@ -105,7 +104,7 @@ export default function Checkout() {
         const orderData = {
           userId: currentUser?.uid,
           userEmail: values.email,
-          items: cart.items,
+          items: cart,
           total: calculateTotal(),
           shippingInfo: values,
           status: "processing",
@@ -263,11 +262,14 @@ export default function Checkout() {
         {/*Order Summary section*/}
         <div className={styles.orderSummary}>
           <h3>Order Summary</h3>
-          {cart.items.map((item) => (
+          {cart.map((item) => (
             <div key={item.id} className={styles.orderItem}>
               <span>{item.name}</span>
               <span>
-                {item.quantity} x {formatCurrency(item.price)}
+                <div className={styles.odsum}>
+                  <span>{item.quantity}</span> x{" "}
+                  <spann>{formatCurrency(item.price)}</spann>
+                </div>
               </span>
             </div>
           ))}

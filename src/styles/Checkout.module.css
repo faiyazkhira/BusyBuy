@@ -11,6 +11,13 @@
   gap: 2rem;
 }
 
+.odsum {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 5px;
+}
+
 .form {
   background: #fff;
   padding: 2rem;

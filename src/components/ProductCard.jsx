@@ -1,13 +1,14 @@
 import { useCustom } from "../contexts/CustomContext";
 import styles from "../styles/ProductCard.module.css";
-import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useCartActions } from "../redux/utils/useCartActions";
 
 //ProductCard component to display individual products
 export default function ProductCard({ product }) {
   const { formatCurrency } = useCustom();
-  const { addToCart, buyNow, cart } = useCart();
+  const { addToCartWithStockCheck: addToCart, buyNow } = useCartActions();
+  const { items: cart } = useSelector((state) => state.cartReducer);
   const { currentUser } = useSelector((state) => state.authReducer);
   const navigate = useNavigate();
   console.log(cart);

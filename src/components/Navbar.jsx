@@ -19,7 +19,6 @@ import { Search } from "@mui/icons-material";
 import { useEffect, useRef, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
-import { useCart } from "../contexts/CartContext";
 import { useCustom } from "../contexts/CustomContext";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../redux/reducers/AuthReducer";
@@ -31,7 +30,7 @@ export default function Navbar() {
   const [categories, setCategories] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const categoriesButtonRef = useRef(null);
-  const { cart } = useCart();
+  const { items: cart } = useSelector((state) => state.cartReducer);
   const [itemsCount, setItemsCount] = useState(0);
   const [search, setSearch] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -49,9 +48,9 @@ export default function Navbar() {
 
   //Hook to calculate total items in the cart
   useEffect(() => {
-    const total = cart.items.reduce((qty, item) => qty + item.quantity, 0);
+    const total = cart.reduce((qty, item) => qty + item.quantity, 0);
     setItemsCount(total);
-  }, [cart.items]);
+  }, [cart]);
 
   //Hook to fetch product categories from Firestore
   useEffect(() => {

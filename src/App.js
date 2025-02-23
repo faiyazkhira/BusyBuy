@@ -5,7 +5,6 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Navbar from "./components/Navbar";
 import ProductDetail from "./pages/ProductDetail";
-import { CartProvider } from "./contexts/CartContext";
 import NotFound from "./pages/NotFound";
 import ProductListing from "./pages/ProductListing";
 import { CustomProvider } from "./contexts/CustomContext";
@@ -81,10 +80,8 @@ function App() {
         <AuthWrapper>
           <NotificationProvider>
             <CustomProvider>
-              <CartProvider>
-                <RouterProvider router={router} />
-                <Analytics />
-              </CartProvider>
+              <RouterProvider router={router} />
+              <Analytics />
             </CustomProvider>
           </NotificationProvider>
         </AuthWrapper>

@@ -3,8 +3,8 @@ import styles from "../styles/Home.module.css";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { useCustom } from "../contexts/CustomContext";
-import { useCart } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
+import { useCartActions } from "../redux/utils/useCartActions";
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -12,7 +12,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { formatCurrency } = useCustom();
-  const { buyNow, handleAddToCart } = useCart();
+  const { buyNow, addToCartWithStockCheck: handleAddToCart } = useCartActions();
   const navigate = useNavigate();
 
   const handleBuyNow = (product) => {

@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { useCustom } from "../contexts/CustomContext";
-import { useCart } from "../contexts/CartContext";
 import styles from "../styles/ProductDetail.module.css";
+import { useCartActions } from "../redux/utils/useCartActions";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -12,7 +12,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { formatCurrency } = useCustom();
-  const { handleAddToCart } = useCart();
+  const { addToCartWithStockCheck: handleAddToCart } = useCartActions();
 
   useEffect(() => {
     const fetchProduct = async () => {
